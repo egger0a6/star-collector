@@ -45,24 +45,30 @@
       {{ planet_form.as_p }}
       <button type="submit" class="btn">Add Planet</button>
     </form>
-    <table>
-      <thead>
-        <tr><th>Planet</th><th>Name</th></tr>
-      </thead>
-      <tbody>
-        {% for planet in star.planet_set.all %}
-          <tr>
-            <td>
-              <img 
-                src="{{ planet.image }}" 
-                alt="planet"
-              >
-            </td>
-            <td>{{ planet.name }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    {% if star.planet_set.all.count %}
+      <table>
+        <thead>
+          <tr><th>Planet</th><th>Name</th></tr>
+        </thead>
+        <tbody>
+          {% for planet in star.planet_set.all %}
+            <tr>
+              <td>
+                <img 
+                  src="{{ planet.image }}" 
+                  alt="planet"
+                >
+              </td>
+              <td>{{ planet.name }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="subsection-content">
+        <p>{{star.name}} has no orbiting planets</p>
+      </div>
+    {% endif %}
   </section>
 </div>
 

@@ -164,10 +164,6 @@
   border-bottom: rgb(249,34,209) solid 2px;
 }
 
-.planets tr:nth-child(even) {
-  background-color: #f3f3fd;
-}
-
 .toy-container p {
   margin: 12px 0;
 }
