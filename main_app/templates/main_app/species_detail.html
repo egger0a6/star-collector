@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/species/species-detail.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+  
+<div class="card" style="border-color: rgb(5,187,180)">
+  <div class="card-bg" style="background-color: rgb(5,187,180)"></div>
+  <div class="card-content">
+    <img 
+      src="{{ species.image }}" 
+      alt="star"
+    >
+    <h2>{{ species.name }}</h2>
+  </div>
+</div>
+<a href="{% url 'species_update' species.id %}" class="btn warn">Edit</a>
+<a href="{% url 'species_delete' species.id %}" class="btn danger">Delete</a>
+
+{% endblock %}

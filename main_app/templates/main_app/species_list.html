@@ -1,0 +1,35 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/species/species-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>All Galactic Species</h1>
+</section>
+
+<section class="card-container">
+  {% for species in species_list %}
+  <div class="card" style="border-color: rgb(5,187,180)">
+    <div class="card-bg" style="background-color: rgb(5,187,180)"></div>
+    <a href="{% url 'species_detail' species.id %}">
+      <div class="card-content">
+        <img 
+          src="{{ species.image }}" 
+          alt="star"
+        >
+        <h2>{{ species.name }}</h2>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

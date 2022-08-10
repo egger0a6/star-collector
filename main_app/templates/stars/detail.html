@@ -70,6 +70,57 @@
       </div>
     {% endif %}
   </section>
+  <section class="species">
+    <div class="subsection-title">
+      <h2>Species</h2>
+    </div>
+    <h3>{{ star.name }} System's Species:</h3>
+    <div class="subsection-content">
+      {% if star.species.count %}
+        {% for species in star.species.all %}
+          <div class="species-container">
+            <div 
+              class="color-block"
+              style="background-color: rgb(5,187,180)"
+            ></div>
+            <a href="{% url 'species_detail' species.id %}">
+              <p>{{ species.name }} species</p>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-species">{{star.name}}'s System doesn't have any life-forms</p>
+      {% endif %}
+    </div>
+    <h3>Galactic Species:</h3>
+    <div class="subsection-content">
+      {% if species.count %}
+        {% for species in species.all %}
+          <div class="species-container">
+            <div 
+              class="color-block"
+            >
+              <img 
+                src="{{ species.image }}" 
+                alt="star"
+              >
+            </div>
+            <a href="{% url 'species_detail' species.id %}">
+              <p>{{ species.name }} species</p>
+            </a>
+            <form action="" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn submit">Add life-form</button>
+            </form>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="all-species">
+          {{star.name}} contains all current life-forms found in this galaxy 
+        </p>
+      {% endif %}
+    </div>
+  </section>
 </div>
 
 {% endblock %}

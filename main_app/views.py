@@ -1,7 +1,9 @@
+from typing import List
 import requests
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Star
+from django.views.generic import ListView, DetailView
+from .models import Star, Species
 from .forms import PlanetForm
 
 COLORS = ['White', 'Blue', 'Red', 'Brown']
@@ -19,10 +21,12 @@ def stars_index(request):
 
 def stars_detail(request, star_id):
   star = Star.objects.get(id=star_id)
+  species_star_doesnt_have = Species.objects.exclude(id__in = star.species.all().values_list('id'))
   planet_form = PlanetForm()
   return render(request, 'stars/detail.html', {
     'star': star,
-    'planet_form': planet_form
+    'planet_form': planet_form,
+    'species': species_star_doesnt_have
   })
 
 def add_planet(request, star_id):
@@ -59,3 +63,27 @@ class StarUpdate(UpdateView):
 class StarDelete(DeleteView):
   model = Star
   success_url = '/stars/'
+
+class SpeciesCreate(CreateView):
+  model = Species
+  fields = ['name']
+
+  def form_valid(self, form):
+    response_API = requests.get("https://app.pixelencounter.com/api/basic/monsters/random/png?size=100")
+    response_headers = response_API.headers
+    form.instance.image = f"https://app.pixelencounter.com/api/basic/monsters/{response_headers['monster-id']}/png?size=100"
+    return super().form_valid(form)
+
+class SpeciesList(ListView):
+  model = Species
+
+class SpeciesDetail(DetailView):
+  model = Species
+
+class SpeciesUpdate(UpdateView):
+  model = Species
+  fields = ['name']
+
+class SpeciesDelete(DeleteView):
+  model = Species
+  success_url = '/species/'

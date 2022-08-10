@@ -9,5 +9,10 @@ urlpatterns = [
   path('stars/create/', views.StarCreate.as_view(), name='stars_create'),
   path('stars/<int:pk>/update', views.StarUpdate.as_view(), name='stars_update'),
   path('stars/<int:pk>/delete', views.StarDelete.as_view(), name='stars_delete'),
-  path('stars/<int:star_id>/add_planet/', views.add_planet, name='add_planet')
+  path('stars/<int:star_id>/add_planet/', views.add_planet, name='add_planet'),
+  path('species/create/', views.SpeciesCreate.as_view(), name='species_create'),
+  path('species/<int:pk>/', views.SpeciesDetail.as_view(), name='species_detail'),
+  path('species/', views.SpeciesList.as_view(), name='species_index'),
+  path('species/<int:pk>/update/', views.SpeciesUpdate.as_view(), name='species_update'),
+  path('species/<int:pk>/delete/', views.SpeciesDelete.as_view(), name='species_delete'),
 ]
