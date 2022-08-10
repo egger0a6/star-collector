@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+<section class="logo-container">
+  <div class="star-container">
+    <img src="https://app.pixelencounter.com/api/basic/stars?frame=13" alt="star" />
+    <h1>Star Collector</h1>
+  </div>
+</section>
+
+{% endblock %}

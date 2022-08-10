@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link 
+  rel="stylesheet" 
+  type="text/css" 
+  href="{% static 'css/stars/star-detail.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+<section class="star-container">
+  <div class="star-img">
+    <img 
+      src="{{ star.image }}" 
+      alt="star"
+    >
+  </div>
+  <div class="star-details">
+    <h1>{{ star.name }}</h1>
+    <h2>A {{ star.color }} star</h2>
+    <h3>Size: {{ star.size }} thousand miles in diameter</h3>
+    {% load humanize %}
+    <h3>Age: {{ star.age|intword }} years old</h3>
+    <div class="star-actions">
+      <a href="{% url 'stars_update' star.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'stars_delete' star.id %}" class="btn danger">Delete</a>
+    </div>
+  </div>
+</section>
+
+<div class="planets-species-container">
+  <section class="planets">
+    <div class="subsection-title">
+      <h2>Planets</h2>
+    </div>
+    <h3>Add an Orbiting Planet</h3>
+    <form
+      action="{% url 'add_planet' star.id %}"
+      method="post" 
+      class="subsection-content"
+    >
+      {% csrf_token %}
+      {{ planet_form.as_p }}
+      <button type="submit" class="btn">Add Planet</button>
+    </form>
+    <table>
+      <thead>
+        <tr><th>Planet</th><th>Name</th></tr>
+      </thead>
+      <tbody>
+        {% for planet in star.planet_set.all %}
+          <tr>
+            <td>
+              <img 
+                src="{{ planet.image }}" 
+                alt="planet"
+              >
+            </td>
+            <td>{{ planet.name }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+
+{% endblock %}

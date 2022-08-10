@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link 
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/stars/star-index.css' %}"
+/>
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>Star List</h1>
+</section>
+
+<section class="card-container">
+  {% for star in stars %}
+    <div class="card">
+      <a href="{% url 'stars_detail' star.id %}">
+        <div class="card-content">
+          <div class="card-img-container">
+            <img 
+              src="{{ star.image }}" 
+              alt="star"
+            >
+          </div>
+          <h2 class="card-title">{{ star.name }}</h2>
+          <p>A {{ star.color }} star</p>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
