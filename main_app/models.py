@@ -1,9 +1,8 @@
-from pyexpat import model
-import re
 from statistics import mode
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -28,6 +27,7 @@ class Star(models.Model):
     validators=[MinValueValidator(0), MaxValueValidator(50000000000)]
   )
   species = models.ManyToManyField(Species)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
     return self.name

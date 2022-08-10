@@ -81,8 +81,12 @@
           <div class="species-container">
             <div 
               class="color-block"
-              style="background-color: rgb(5,187,180)"
-            ></div>
+            >
+              <img 
+                src="{{ species.image }}" 
+                alt="species"
+              >
+            </div>
             <a href="{% url 'species_detail' species.id %}">
               <p>{{ species.name }} species</p>
             </a>
@@ -102,13 +106,13 @@
             >
               <img 
                 src="{{ species.image }}" 
-                alt="star"
+                alt="species"
               >
             </div>
             <a href="{% url 'species_detail' species.id %}">
               <p>{{ species.name }} species</p>
             </a>
-            <form action="" method="post">
+            <form action="{% url 'assoc_species' star.id species.id %}" method="post">
               {% csrf_token %}
               <button type="submit" class="btn submit">Add life-form</button>
             </form>
